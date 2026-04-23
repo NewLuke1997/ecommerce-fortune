@@ -297,9 +297,7 @@ body {
   box-shadow: 0 0 0 3px rgba(212,168,67,0.1);
 }
 
-input[type="date"] {
-  color-scheme: dark;
-}
+
 
 /* Draw Button */
 .draw-btn {

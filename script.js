@@ -215,7 +215,13 @@ function initPlatformButtons() {
 
 function initDateInput() {
   const dateInput = document.getElementById('birthdate');
-  dateInput.max = new Date().toISOString().split('T')[0];
+  // Auto-insert dashes as user types
+  dateInput.addEventListener('input', function() {
+    let v = this.value.replace(/[^0-9]/g, '');
+    if (v.length > 4) v = v.slice(0,4) + '-' + v.slice(4);
+    if (v.length > 7) v = v.slice(0,7) + '-' + v.slice(7);
+    this.value = v.slice(0, 10);
+  });
 }
 
 // ===== Seeded Random =====
