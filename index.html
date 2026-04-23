@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>跨境电商运势签 · 每日开运指南</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <span class="logo-icon">🏮</span>
+        <h1 class="logo-text">跨境电商运势签</h1>
+      </div>
+      <nav class="nav">
+        <a href="index.html" class="nav-link active">抽签</a>
+        <a href="about.html" class="nav-link">关于我们</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">✨ 每日一签 · 开运指南</div>
+      <h2 class="hero-title">今日跨境电商运势</h2>
+      <p class="hero-subtitle">输入信息，获取今日专属电商运营建议</p>
+    </div>
+  </section>
+
+  <!-- Fortune Form -->
+  <section class="form-section">
+    <div class="form-card">
+      <div class="form-header">
+        <span class="form-icon">🎋</span>
+        <h3>填写信息 · 开始抽签</h3>
+      </div>
+
+      <!-- Platform Selection -->
+      <div class="form-group">
+        <label class="form-label">
+          <span class="label-icon">🛒</span>
+          选择电商平台
+        </label>
+        <div class="platform-grid">
+          <button class="platform-btn" data-platform="amazon">
+            <span class="platform-emoji">📦</span>
+            <span class="platform-name">Amazon</span>
+          </button>
+          <button class="platform-btn" data-platform="shopee">
+            <span class="platform-emoji">🛍️</span>
+            <span class="platform-name">Shopee</span>
+          </button>
+          <button class="platform-btn" data-platform="lazada">
+            <span class="platform-emoji">🏪</span>
+            <span class="platform-name">Lazada</span>
+          </button>
+          <button class="platform-btn" data-platform="tiktok">
+            <span class="platform-emoji">🎵</span>
+            <span class="platform-name">TikTok Shop</span>
+          </button>
+          <button class="platform-btn" data-platform="temu">
+            <span class="platform-emoji">🏷️</span>
+            <span class="platform-name">Temu</span>
+          </button>
+          <button class="platform-btn" data-platform="shein">
+            <span class="platform-emoji">👗</span>
+            <span class="platform-name">SHEIN</span>
+          </button>
+          <button class="platform-btn" data-platform="ebay">
+            <span class="platform-emoji">🔖</span>
+            <span class="platform-name">eBay</span>
+          </button>
+          <button class="platform-btn" data-platform="aliexpress">
+            <span class="platform-emoji">🌍</span>
+            <span class="platform-name">AliExpress</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Name Input -->
+      <div class="form-group">
+        <label class="form-label" for="username">
+          <span class="label-icon">👤</span>
+          你的名字
+        </label>
+        <input type="text" id="username" class="form-input" placeholder="输入你的名字或昵称" maxlength="20">
+      </div>
+
+      <!-- Birth Date -->
+      <div class="form-group">
+        <label class="form-label" for="birthdate">
+          <span class="label-icon">🎂</span>
+          出生年月日
+        </label>
+        <input type="date" id="birthdate" class="form-input">
+      </div>
+
+      <!-- Draw Button -->
+      <button class="draw-btn" id="drawBtn" onclick="drawFortune()">
+        <span class="draw-btn-text">🎋 开始抽签</span>
+        <span class="draw-btn-sparkle">✨</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Fortune Result -->
+  <section class="result-section" id="resultSection" style="display:none;">
+    <div class="result-card">
+      <div class="result-header">
+        <div class="result-badge" id="resultBadge"></div>
+        <h3 class="result-title" id="resultTitle"></h3>
+        <p class="result-date" id="resultDate"></p>
+      </div>
+
+      <!-- Overall Fortune -->
+      <div class="fortune-block overall-fortune">
+        <div class="fortune-icon" id="overallIcon"></div>
+        <h4>综合运势</h4>
+        <div class="fortune-stars" id="overallStars"></div>
+        <p class="fortune-text" id="overallText"></p>
+      </div>
+
+      <!-- E-commerce Specific -->
+      <div class="fortune-grid">
+        <div class="fortune-block">
+          <div class="fortune-icon">📢</div>
+          <h4>广告投放</h4>
+          <p class="fortune-text" id="adText"></p>
+          <div class="fortune-tag" id="adTag"></div>
+        </div>
+        <div class="fortune-block">
+          <div class="fortune-icon">📦</div>
+          <h4>库存管理</h4>
+          <p class="fortune-text" id="stockText"></p>
+          <div class="fortune-tag" id="stockTag"></div>
+        </div>
+        <div class="fortune-block">
+          <div class="fortune-icon">💰</div>
+          <h4>定价策略</h4>
+          <p class="fortune-text" id="priceText"></p>
+          <div class="fortune-tag" id="priceTag"></div>
+        </div>
+        <div class="fortune-block">
+          <div class="fortune-icon">⭐</div>
+          <h4>选品建议</h4>
+          <p class="fortune-text" id="productText"></p>
+          <div class="fortune-tag" id="productTag"></div>
+        </div>
+        <div class="fortune-block">
+          <div class="fortune-icon">🚚</div>
+          <h4>物流运势</h4>
+          <p class="fortune-text" id="logisticsText"></p>
+          <div class="fortune-tag" id="logisticsTag"></div>
+        </div>
+        <div class="fortune-block">
+          <div class="fortune-icon">👥</div>
+          <h4>客服沟通</h4>
+          <p class="fortune-text" id="serviceText"></p>
+          <div class="fortune-tag" id="serviceTag"></div>
+        </div>
+      </div>
+
+      <!-- Lucky Items -->
+      <div class="lucky-section">
+        <h4>🍀 今日开运</h4>
+        <div class="lucky-grid">
+          <div class="lucky-item">
+            <span class="lucky-label">幸运颜色</span>
+            <span class="lucky-value" id="luckyColor"></span>
+          </div>
+          <div class="lucky-item">
+            <span class="lucky-label">幸运数字</span>
+            <span class="lucky-value" id="luckyNumber"></span>
+          </div>
+          <div class="lucky-item">
+            <span class="lucky-label">吉时</span>
+            <span class="lucky-value" id="luckyTime"></span>
+          </div>
+          <div class="lucky-item">
+            <span class="lucky-label">宜</span>
+            <span class="lucky-value good" id="luckyGood"></span>
+          </div>
+          <div class="lucky-item">
+            <span class="lucky-label">忌</span>
+            <span class="lucky-value bad" id="luckyBad"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fortune Poem -->
+      <div class="poem-section">
+        <div class="poem-decoration">︽</div>
+        <p class="poem-text" id="poemText"></p>
+        <div class="poem-decoration">︾</div>
+      </div>
+
+      <!-- Actions -->
+      <div class="result-actions">
+        <button class="action-btn primary" onclick="drawFortune()">🔄 再抽一签</button>
+        <button class="action-btn" onclick="shareFortune()">📤 分享运势</button>
+        <a href="about.html" class="action-btn">💬 联系我们</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p>跨境电商运势签 · 仅供娱乐参考</p>
+      <p class="footer-sub">Powered by <a href="https://github.com/NewLuke1997" target="_blank">NewLuke1997</a></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
