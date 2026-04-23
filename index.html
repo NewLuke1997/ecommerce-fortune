@@ -219,6 +219,29 @@
     </div>
   </section>
 
+  <!-- Stats Counter -->
+  <section class="stats-section">
+    <div class="stats-card">
+      <div class="stats-item">
+        <span class="stats-icon">👁️</span>
+        <span class="stats-label">总浏览</span>
+        <span class="stats-value" id="pvCount">-</span>
+      </div>
+      <div class="stats-divider"></div>
+      <div class="stats-item">
+        <span class="stats-icon">👥</span>
+        <span class="stats-label">访客数</span>
+        <span class="stats-value" id="uvCount">-</span>
+      </div>
+      <div class="stats-divider"></div>
+      <div class="stats-item">
+        <span class="stats-icon">🎋</span>
+        <span class="stats-label">已抽签</span>
+        <span class="stats-value" id="drawCount">-</span>
+      </div>
+    </div>
+  </section>
+
   <!-- Toast -->
   <div class="toast" id="toast"></div>
 
@@ -231,5 +254,117 @@
   </footer>
 
   <script src="script.js"></script>
+  <!-- Busuanzi Visitor Counter -->
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script>
+    (function updateStats() {
+      var pvEl = document.getElementById('pvCount');
+      var uvEl = document.getElementById('uvCount');
+      var drawEl = document.getElementById('drawCount');
+      // Local draw count
+      if (drawEl) drawEl.textContent = localStorage.getItem('fortune_draws') || '0';
+      // Wait for busuanzi
+      var tries = 0;
+      var timer = setInterval(function() {
+        var pv = document.getElementById('busuanzi_value_site_pv');
+        var uv = document.getElementById('busuanzi_value_site_uv');
+        if (pv && pv.textContent) pvEl.textContent = pv.textContent;
+        if (uv && uv.textContent) uvEl.textContent = uv.textContent;
+        if (++tries > 30 || (pv && pv.textContent)) clearInterval(timer);
+      }, 500);
+    })();
+  </script>
+  <script>
+    // Update stats display
+    function updateStats() {
+      // Busuanzi PV
+      const pvEl = document.getElementById('pvCount');
+      const uvEl = document.getElementById('uvCount');
+      const drawEl = document.getElementById('drawCount');
+
+      // Wait for busuanzi to load
+      let tries = 0;
+      const timer = setInterval(() => {
+        const pv = document.getElementById('busuanzi_value_site_pv');
+        const uv = document.getElementById('busuanzi_value_site_uv');
+        if (pv && pv.textContent && pv.textContent !== '') {
+          pvEl.textContent = pv.textContent;
+          clearInterval(timer);
+        }
+        if (uv && uv.textContent && uv.textContent !== '') {
+          uvEl.textContent = uv.textContent;
+        }
+        if (++tries > 30) {
+          clearInterval(timer);
+          pvEl.textContent = pv ? pv.textContent || '0' : '0';
+          uvEl.textContent = uv ? uv.textContent || '0' : '0';
+        }
+      }, 500);
+
+      // Local draw count
+      const draws = parseInt(localStorage.getItem('fortune_draws') || '0');
+      drawEl.textContent = draws;
+    }
+
+    // Increment draw count on each fortune draw
+    const origDraw = window.drawFortune;
+    if (typeof origDraw === 'function') {
+      window.drawFortune = function() {
+        const result = origDraw.apply(this, arguments);
+        const draws = parseInt(localStorage.getItem('fortune_draws') || '0') + 1;
+        localStorage.setItem('fortune_draws', draws);
+        document.getElementById('drawCount').textContent = draws;
+        return result;
+      };
+    }
+
+    updateStats();
+  </script>
+  <script>
+    // Update stats display
+    function updateStats() {
+      // Busuanzi PV
+      const pvEl = document.getElementById('pvCount');
+      const uvEl = document.getElementById('uvCount');
+      const drawEl = document.getElementById('drawCount');
+
+      // Wait for busuanzi to load
+      let tries = 0;
+      const timer = setInterval(() => {
+        const pv = document.getElementById('busuanzi_value_site_pv');
+        const uv = document.getElementById('busuanzi_value_site_uv');
+        if (pv && pv.textContent && pv.textContent !== '') {
+          pvEl.textContent = pv.textContent;
+          clearInterval(timer);
+        }
+        if (uv && uv.textContent && uv.textContent !== '') {
+          uvEl.textContent = uv.textContent;
+        }
+        if (++tries > 30) {
+          clearInterval(timer);
+          pvEl.textContent = pv ? pv.textContent || '0' : '0';
+          uvEl.textContent = uv ? uv.textContent || '0' : '0';
+        }
+      }, 500);
+
+      // Local draw count
+      const draws = parseInt(localStorage.getItem('fortune_draws') || '0');
+      drawEl.textContent = draws;
+    }
+
+    // Increment draw count on each fortune draw
+    const origDraw = window.drawFortune;
+    if (typeof origDraw === 'function') {
+      window.drawFortune = function() {
+        const result = origDraw.apply(this, arguments);
+        const draws = parseInt(localStorage.getItem('fortune_draws') || '0') + 1;
+        localStorage.setItem('fortune_draws', draws);
+        document.getElementById('drawCount').textContent = draws;
+        return result;
+      };
+    }
+
+    updateStats();
+  </script>
 </body>
 </html>

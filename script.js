@@ -279,6 +279,12 @@ function drawFortune() {
     btn.classList.remove('loading');
     btn.querySelector('.draw-btn-text').textContent = '🎋 开始抽签';
     generateFortune(name, birthdate, selectedPlatform);
+
+    // Update draw count
+    const draws = parseInt(localStorage.getItem('fortune_draws') || '0') + 1;
+    localStorage.setItem('fortune_draws', draws);
+    const drawEl = document.getElementById('drawCount');
+    if (drawEl) drawEl.textContent = draws;
   }, 1500);
 }
 
