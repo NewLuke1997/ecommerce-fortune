@@ -285,6 +285,7 @@ function generateFortune(name, birthdate, platform) {
     amazon: 'Amazon', shopee: 'Shopee', lazada: 'Lazada',
     tiktok: 'TikTok Shop', temu: 'Temu', shein: 'SHEIN',
     ebay: 'eBay', aliexpress: 'AliExpress',
+    ozon: 'OZON', mercadolibre: 'MercadoLibre',
   };
 
   // Badge
